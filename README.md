@@ -26,8 +26,7 @@ When running the parallel version, each process will generate part of the final 
 
 
 **Process 0:**
-![lena](resources/rank_0.bmp)
-
+![lena](Downloads/rank0.bmp)
 **Process 1:**
 ![lena](resources/rank_1.bmp)
 
