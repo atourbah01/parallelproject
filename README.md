@@ -2,7 +2,7 @@
 Kernel Filtering & Image Covolution
 # Parallelizing Convolutions
 
-This project aims to apply the Emboss kernel on images in both serial and parallel. Parallel versions use MPI, OpenMP and CUDA C.
+This project aims to apply the Emboss kernel on images in both serial and parallel. Parallel versions use MPI, OpenMP and CUDA C baisc version and the tiling version.
 
 **This code is for an assignment and is not production grade.**
 
@@ -22,11 +22,12 @@ The result should be as below:
 
 ![lena](resources/lena_embossed.bmp)
 
-When running the parallel version, each process will generate part of the final result, as shown below for 4 processes:
+When running the parallel version, each process will generate part of the final result, as shown in the 4 processes (image files):
 
 
 **Process 0:**
 ![lena](Downloads/rank0.bmp)
+
 **Process 1:**
 ![lena](resources/rank_1.bmp)
 
@@ -46,22 +47,23 @@ To compile, run `make all`
 ### Run in serial
 To run the serial version on an example image, run:
 
-`./build/serial images/lena.bmp lena_serial.bmp`
+`./lena_serial.bmp`
 
 ### Run in parallel with MPI
 
 To run a parallel version of the algorithm using MPI with 4 processes, run:
 
-`mpirun -n 4 ./build/parallel-mpi images/lena.bmp lena_mpi.bmp`
+`mpirun -n 4 ./lena_mpi.bmp`
 
 To make each process output its partial result, use `verbose` as shown below:
 
-`mpirun -n 4 ./build/parallel-mpi images/lena.bmp lena_mpi.bmp verbose`
+`mpirun -n 4 ./lena_mpi.bmp verbose`
 
 ### Run in parallel with MPI and OpenMP
 To run a parallel version of the algorithm using MPI an OpenMP with 4 processes, run:
 
-`mpirun -n 4 ./build/parallel-mpiomp images/lena.bmp lena_mpi_omp.bmp`
+`mpirun -n 4 ./lena_mpi_omp.bmp`
+
 
 
 ### Generate random images
@@ -94,21 +96,3 @@ To run experiments and print average time spent processing images generated in t
 *Problem:*  When using the MPI version, the final image looks distorted.
 
 *Root cause:* Processes 0 and N-2 deliver more pixels then they should ahte they are used to assemble the final image.
-
-*Resolution date:* Probably after the end of this semester when I manage to finish other assignments.
-
-<!--
-This is how it should look like:
-
-**Distorced:**
-![lena](resources/filtered.bmp) -->
-
-### Segfault with MPI and OpenMP
-
-*Problem:* When using MPI and OpenMP together the application *might* eventually end unexpectedly.
-
-*Root cause:* The reason was not found yet.
-
-## Future work
-
-I plan to fix bugs and separate the code for Bitmap manipulation from the application code as a lib.
