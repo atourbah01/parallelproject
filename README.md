@@ -16,7 +16,7 @@ The result should be as below:
 
 **Original image:**
 
-![lena](images/lena.bmp)
+input.jpg
 
 **Processed image:**
 
