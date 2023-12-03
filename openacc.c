@@ -1,12 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <mpi.h>
 #include <time.h>
 
 #define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
+#include "stb_image.h "
 #define STB_IMAGE_WRITE_IMPLEMENTATION
-#include "stb_image_write.h"
+#include "stb_image_write.h "
 
 void image_convolution(const float *input, float *output, int width, int height, const float *kernel, int kernel_size)
 {
@@ -39,7 +38,7 @@ void image_convolution(const float *input, float *output, int width, int height,
 int main()
 {
     const char *input_file = "input.jpg";
-    const char *output_file = "out.jpg";
+    const char *output_file = "outbasicacc.jpg";
     int width, height, channels;
 
     // Load the input image
