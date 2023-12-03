@@ -3,9 +3,9 @@
 #include <math.h>
 
 #define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
+#include "stb_image.h "
 #define STB_IMAGE_WRITE_IMPLEMENTATION
-#include "stb_image_write.h"
+#include "stb_image_write.h "
 
 #include <cuda_runtime.h>
 
@@ -61,12 +61,13 @@ __global__ void image_convolution_kernel(const unsigned char *input, unsigned ch
 
     // Write the result back to the output
     output[(tile_y * width + tile_x) * channels + c] = (unsigned char)(sum * 255);
+    __syncthreads;
 }
 
 int main(int argc, char *argv[])
 {
     const char *input_file = "input.jpg";
-    const char *output_file = "output.jpg";
+    const char *output_file = "outputtile.jpg";
     int width, height, channels;
 
     unsigned char *image_data = stbi_load(input_file, &width, &height, &channels, 0);
@@ -98,9 +99,24 @@ int main(int argc, char *argv[])
     dim3 numBlocks((width + TILE_SIZE - 1) / TILE_SIZE,
                    (height + TILE_SIZE - 1) / TILE_SIZE,
                    channels);
+                   
+     cudaEvent_t start, stop;
+    cudaEventCreate(&start);
+    cudaEventCreate(&stop);
 
+    cudaEventRecord(start);               
     image_convolution_kernel<<<numBlocks, threadsPerBlock>>>(d_input, d_output, width, height, channels, d_kernel, kernel_size);
+    cudaEventRecord(stop);
+    cudaEventSynchronize(stop);
 
+    float milliseconds = 0;
+    cudaEventElapsedTime(&milliseconds, start, stop);
+
+    // Convert milliseconds to seconds
+    double seconds = milliseconds / 1000.0f;
+
+    printf("CUDA Execution Time: %d s\n", seconds);
+    
     cudaMemcpy(image_data, d_output, image_size, cudaMemcpyDeviceToHost);
 
     stbi_write_jpg(output_file, width, height, channels, image_data, 100);
