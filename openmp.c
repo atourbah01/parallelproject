@@ -38,7 +38,7 @@ void image_convolution(const float *input, float *output, int width, int height,
 
 int main()
 {
-    const char *input_file = "f1.jpg";
+    const char *input_file = "input.jpg";
     const char *output_file = "output.jpg";
     int width, height, channels;
 
