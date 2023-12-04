@@ -8,7 +8,7 @@ This project aims to apply the Emboss kernel on images in both serial and parall
 
 Spreasheet with results (**time, speedup and efficiency**):
 
-https://docs.google.com/spreadsheets/d/14RXUATwGfS6NzDjerQxIyk-99d9u-4Vin8MdKZ8S0VI/edit?usp=sharing
+Excel file submitted
 
 ## What to expect
 
@@ -20,79 +20,39 @@ input.jpg
 
 **Processed image:**
 
-![lena](resources/lena_embossed.bmp)
-
-When running the parallel version, each process will generate part of the final result, as shown in the 4 processes (image files):
-
-
-**Process 0:**
-![lena](Downloads/rank0.bmp)
-
-**Process 1:**
-![lena](resources/rank_1.bmp)
-
-**Process 2:**
-![lena](resources/rank_2.bmp)
-
-**Process 3:**
-![lena](resources/rank_3.bmp)
+When running the parallel version, each process will generate part of the final result:
 
 ## How it works
-the master process will divide the work among slave process each of them taking care or a row
+
+the master process will divide the work among slave process each of them taking care of a matrix node of the image pixelated
+
 ## How To
-doing matrix multiplication between grey scaling and each part of the image for each procces performing a full row of matrix multiplication which makes the image more dense the more matrix multiplication it performs
+
+doing matrix multiplication between grey scaling and each part of the image for each procces performing a full row of matrix multiplication which makes the image more dense an darker after performing matrix multiplication
+
 ### Compile
-To compile, run `make all`
 
-### Run in serial
-To run the serial version on an example image, run:
-
-`./lena_serial.bmp`
-
-### Run in parallel with MPI
-
-To run a parallel version of the algorithm using MPI with 4 processes, run:
-
-`mpirun -n 4 ./lena_mpi.bmp`
-
-To make each process output its partial result, use `verbose` as shown below:
-
-`mpirun -n 4 ./lena_mpi.bmp verbose`
-
-### Run in parallel with MPI and OpenMP
-To run a parallel version of the algorithm using MPI an OpenMP with 4 processes, run:
-
-`mpirun -n 4 ./lena_mpi_omp.bmp`
-
-
+Compilation shown in word document and power point
 
 ### Generate random images
+
 To generate random images with noise for testing purposes, run `./make-images.sh`
 
 
 ### Run experiments
-To run experiments and print average time spent processing images generated in the step above, run `fire` scripts:
+To run experiments and print average time spent processing images generated in the step above, include scripts in every .c or .cu code:
 
-``` .sh
-# Serial
-./fire.sh
+# stb_image.h
+#include "stb_image.h"
 
-# MPI
-./fire-mpi.sh
+# stb_image_write.h
+#include "stb_image_write.h"
 
-# OpenMP
-./fire-omp.sh
-
-# MPI+OpenMP
-./fire-mpiomp.sh
-
-```
-
-
+# cuda_runtime.h (only for cuda codes)
 
 ## Known bugs
 ### Distorced images with MPI
 
-*Problem:*  When using the MPI version, the final image looks distorted.
+*Problem:*  When using the MPI version and both CUDA version files (basic and tiling), the final image looks similar to the input photo.
 
-*Root cause:* Processes 0 and N-2 deliver more pixels then they should ahte they are used to assemble the final image.
+*Root cause:* Forgot to add conversion from RGB to grayscale.
