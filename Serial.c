@@ -66,9 +66,6 @@ int main()
         1 / 9.0f, 1 / 9.0f, 1 / 9.0f};
 
     int kernel_size = 3;
-    /*  1 / 16.0f, 2 / 16.0f, 1 / 16.0f,
-      2 / 16.0f, 4 / 16.0f, 2 / 16.0f,
-      1 / 16.0f, 2 / 16.0f, 1 / 16.0f};*/
 
     // Perform the convolution
     float *convoluted_data = malloc(width * height * sizeof(float));
