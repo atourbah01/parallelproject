@@ -12,7 +12,7 @@
 void image_convolution(const float *input, float *output, int width, int height, const float *kernel, int kernel_size)
 {
     int pad = kernel_size / 2;
-    #pragma acc parallel loop collapse(2) present(input[:width*height], kernel[:kernel_size*kernel_size]) present(output[:width*height])
+    #pragma acc parallel loop collapse(2) present(input[:width*height], kernel[:kernel_size*kernel_size]) present(output[:width*height]) num_cores(4)
     for (int by = 0; by < (height + TILE_SIZE - 1) / TILE_SIZE; ++by)
     {
         for (int bx = 0; bx < (width + TILE_SIZE - 1) / TILE_SIZE; ++bx)
