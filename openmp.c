@@ -11,7 +11,7 @@
 void image_convolution(const float *input, float *output, int width, int height, const float *kernel, int kernel_size)
 {
     int pad = kernel_size / 2;
-#pragma omp parallel for collapse(2)
+#pragma omp parallel for collapse(2) num_threads(4)
     for (int y = 0; y < height; ++y)
     {
         for (int x = 0; x < width; ++x)
