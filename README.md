@@ -5,11 +5,11 @@ Kernel Filtering & Image Covolution
 This project aims to apply the Emboss kernel on images in both serial and parallel. Parallel versions use MPI, OpenMP and CUDA C baisc version and the tiling version.
 # File size resolution used 
 
-input3.jpeg / out3.jpeg (HD resolution)
-input4.jpeg / out4.jpeg (2K resolution)
-input.jpg / out.jpg (4K resolution)
-input2.jpeg / out2.jpeg (5K resolution)
-input1.jpeg / out1.jpeg (8K resolution)
+# input3.jpeg / out3.jpeg (HD resolution)
+# input4.jpeg / out4.jpeg (2K resolution)
+# input.jpg / out.jpg (4K resolution)
+# input2.jpeg / out2.jpeg (5K resolution)
+# input1.jpeg / out1.jpeg (8K resolution)
 
 **This code is for an assignment and is not production grade.**
 
