@@ -13,7 +13,7 @@ input1.jpeg / out1.jpeg (8K resolution)
 
 **This code is for an assignment and is not production grade.**
 
-Spreasheet with results (**time, speedup and efficiency**):
+File with results (**time, speedup and efficiency**):
 
 Excel file submitted
 
